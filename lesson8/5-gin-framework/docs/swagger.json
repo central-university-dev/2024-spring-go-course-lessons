@@ -1,0 +1,99 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API с использованием фреймворка gin",
+        "title": "API складского учёта",
+        "contact": {
+            "name": "Иван Иваныч Иванов",
+            "email": "i.i.ivanov@example.com"
+        },
+        "version": "0.1.2"
+    },
+    "host": "localhost:8000",
+    "basePath": "/api",
+    "paths": {
+        "/item": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение списка вещей",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dtos.Item"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "summary": "Добавить вещь",
+                "parameters": [
+                    {
+                        "description": "Новая вещь",
+                        "name": "item",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Item"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/item/{itemId}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение вещи по идентификатору",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Идентификатор вещи",
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Item"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dtos.Item": {
+            "description": "Вещь на складе",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

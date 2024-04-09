@@ -1,0 +1,64 @@
+basePath: /api
+definitions:
+  dtos.Item:
+    description: Вещь на складе
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: i.i.ivanov@example.com
+    name: Иван Иваныч Иванов
+  description: API с использованием фреймворка gin
+  title: API складского учёта
+  version: 0.1.2
+paths:
+  /item:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.Item'
+            type: array
+      summary: Получение списка вещей
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Новая вещь
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.Item'
+      responses:
+        "200":
+          description: OK
+      summary: Добавить вещь
+  /item/{itemId}:
+    get:
+      parameters:
+      - description: Идентификатор вещи
+        in: path
+        name: itemId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.Item'
+      summary: Получение вещи по идентификатору
+swagger: "2.0"

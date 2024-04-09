@@ -1,0 +1,138 @@
+swagger: "2.0"
+info:
+  title: "Список задач"
+  description: "Демонстрационное API сервиса 'список задач'"
+  version: "0.1.2"
+host: "localhost:8000"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /task:
+    get:
+      summary: "Получение списка задач"
+      operationId: "getTasks"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "show_done"
+        description: "Признак получения уже выполенных задач"
+        required: false
+        type: boolean
+      responses:
+        "200":
+          description: "Успех"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Task"
+        "400":
+          description: Некорректный ввод
+    post:
+      summary: "Добавить новую задачу"
+      operationId: "createTask"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "task"
+        in: body
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "400":
+          description: Некорректный ввод
+        "422":
+          description: Недопустимые значения
+  /task/{taskId}:
+    get:
+      summary: "Получение задачи по идентификатору"
+      operationId: "getTaskById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: Идентификатор задачи
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Успех"
+          schema:
+            $ref: "#/definitions/Task"
+        "400":
+          description: Некорректный ввод
+        "404":
+          description: Такой задачи нет
+    put:
+      summary: "Изменение задачи"
+      operationId: "updateTask"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: Идентификатор задачи
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "task"
+        in: body
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "400":
+          description: Некорректный ввод
+        "404":
+          description: Такой задачи нет
+        "422":
+          description: Недопустимые значения
+    delete:
+      summary: "Удаление задачи"
+      operationId: "deletePet"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: "Идентификатор задачи"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: Некорректный ввод
+        "404":
+          description: Такой задачи нет
+definitions:
+  Task:
+    type: "object"
+    required:
+    - "id"
+    - "title"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Идентификатор"
+        example: 1
+      title:
+        type: "string"
+        description: "Название"
+        example: "Купить хлеба"
+      description:
+        type: "string"
+        description: "Подробное описание"
+        example: "Нужен цельнозерновой для диеты"
+      status:
+        type: "string"
+        description: "Статус"
+        enum:
+        - "active"
+        - "done"
