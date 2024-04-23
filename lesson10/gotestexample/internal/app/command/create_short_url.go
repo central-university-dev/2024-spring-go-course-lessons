@@ -1,13 +1,12 @@
-//go:generate mockgen -destination=../../../mocks/create_short_url_cmd.go -package=mocks -mock_names=Repository=MockCmdRepo,IDProvider=StubIDProvider github.com/kulinsky/gotestexample/internal/app/command Repository,IDProvider
+//go:generate mockgen -destination=../../../mocks/create_short_url_cmd.go -package=mocks -mock_names=Repository=MockCmdRepo,IDProvider=StubIDProvider gotestexample/internal/app/command Repository,IDProvider
 
 package command
 
 import (
 	"context"
 	"fmt"
-	"net/url"
-
 	"gotestexample/internal/common"
+	"net/url"
 )
 
 var (

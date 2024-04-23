@@ -4,13 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-
 	"gotestexample/internal/common"
 )
 
 var ErrRepository = fmt.Errorf("query repo error: %w", common.ErrTechnical)
 
-//go:generate mockgen -destination=../../../mocks/get_long_url_repo.go -mock_names=Repository=MockQueryRepo -package=mocks github.com/kulinsky/gotestexample/internal/app/query Repository
+//go:generate mockgen -destination=../../../mocks/get_long_url_repo.go -mock_names=Repository=MockQueryRepo -package=mocks gotestexample/internal/app/query Repository
 type Repository interface {
 	Get(ctx context.Context, id string) (string, error)
 }
