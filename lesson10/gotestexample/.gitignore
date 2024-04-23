@@ -1,0 +1,16 @@
+.env
+coverage.out
+/.vs/
+/vendor/
+/.idea
+/.vscode
+/tmp/
+/gen
+/deploy
+/.env
+/docker-compose.yml
+/sources.list
+/.air.toml
+/.golangci_dir
+/coverage.out
+/.history/

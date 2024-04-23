@@ -1,0 +1,70 @@
+run:
+  tests: true
+  timeout: 5m
+linters:
+  disable-all: true
+  enable:
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exhaustive
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - revive
+    - goprintffuncname
+    - gosec
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - nolintlint
+    - exportloopref
+    - typecheck
+    - unconvert
+    - whitespace
+    - asciicheck
+    - gocognit
+    - godot
+    - nestif
+    - prealloc
+    - testpackage
+    - wsl
+linters-settings:
+  lll:
+    line-length: 140
+  funlen:
+    lines: 70
+    statements: 50
+  goimports:
+    local-prefixes: github.com/kulinsky/gotestexample
+  gocritic:
+    enabled-tags:
+      - style
+      - experimental
+      - performance
+      - diagnostic
+      - opinionated
+  depguard:
+    rules:
+      main:
+        deny:
+          - pkg: github.com/go-playground/assert/v2
+            desc: Use github.com/stretchr/testify/assert instead, which we already depend on.
+issues:
+  exclude-rules:
+    - path: "test.go"
+      linters:
+        - funlen
+        - dupl
+
+    - path: "test/(.+)"
+      linters:
+        - gocritic
+      text: 'hugeParam\: \S+ is heavy \(\d+ bytes\)\; consider passing it by pointer'
